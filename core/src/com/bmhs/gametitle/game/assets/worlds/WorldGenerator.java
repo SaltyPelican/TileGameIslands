@@ -2,9 +2,12 @@ package com.bmhs.gametitle.game.assets.worlds;
 
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.bmhs.gametitle.gfx.assets.tiles.statictiles.WorldTile;
 import com.bmhs.gametitle.gfx.utils.TileHandler;
+
 
 
 public class WorldGenerator {
@@ -19,10 +22,32 @@ public class WorldGenerator {
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
+        Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
+        System.out.println(mapSeed.y + " " + mapSeed.x);
+
+        worldIntMap[(int)mapSeed.y][(int)mapSeed.x] = 4;
+
+        oceanBackground();
+
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                Vector2 tempVector = new Vector2(c, r);
+                if(tempVector.dst(mapSeed) < 10) {
+                    worldIntMap[r][c] = 17;
+                }
+            }
+        }
+
         //call methods to build 2D array
-        randomize();
+
+        // randomize();
+        // centerLake();
+        // leftCoast();
 
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
+
+        generateWorldTextFile();
+
     }
 
     public String getWorld3DArrayToString() {
@@ -36,6 +61,39 @@ public class WorldGenerator {
         }
 
         return returnString;
+    }
+
+    public void centerLake() {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                if( Math.pow((r - 50), 2) + Math.pow((c - 80), 2)  < 2000) {
+                    worldIntMap[r][c] = 20;
+                }
+            }
+        }
+    }
+
+    public void leftCoast() {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                if(c < 10) {
+                    worldIntMap[r][c] = 20;
+                }
+            }
+        }
+    }
+
+    public void oceanBackground() {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                if(Math.random() < 0.78) {
+                    worldIntMap[r][c] = 20;
+                }
+                else{
+                    worldIntMap[r][c] = 19;
+                }
+            }
+        }
     }
 
     public void randomize() {
@@ -54,6 +112,11 @@ public class WorldGenerator {
             }
         }
         return worldTileMap;
+    }
+
+    private void generateWorldTextFile() {
+        FileHandle file = Gdx.files.local("assets/worlds/world.txt");
+        file.writeString(getWorld3DArrayToString(), false);
     }
 
 }
