@@ -16,7 +16,7 @@ public class TileHandler {
     private int spriteSheetHeight, spriteSheetWidth, spriteOnSheetHeight, spriteOnSheetWidth;
 
     private final String primaryColorSheetPath = "primaryColorSheet.png";
-    // private final String grassSpriteSheetPath = "grassSpriteSheet.png";
+    private final String waterSpriteSheetPath = "water spritesheet.png";
 
     private Array<WorldTile> worldTileArray;
 
@@ -31,8 +31,7 @@ public class TileHandler {
         worldTileArray.add(new WorldTile(new TextureRegion(new Texture(primaryColorSheetPath), 0, 0, spriteOnSheetWidth, spriteOnSheetHeight), 0, "transparent"));
 
         createWorldTiles(primaryColorSheetPath, "primary color", worldTileArray);
-        // createWorldTiles(grassSpriteSheetPath, "grass", worldTileArray);
-        // here Tile Game Island Starters
+        createWorldTiles(waterSpriteSheetPath, "water", worldTileArray);
     }
 
     public static TileHandler getTileHandler() {

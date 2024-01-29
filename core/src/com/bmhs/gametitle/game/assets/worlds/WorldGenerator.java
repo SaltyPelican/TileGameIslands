@@ -22,18 +22,21 @@ public class WorldGenerator {
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
-        Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
-        System.out.println(mapSeed.y + " " + mapSeed.x);
-
-        worldIntMap[(int)mapSeed.y][(int)mapSeed.x] = 4;
-
         oceanBackground();
 
-        for(int r = 0; r < worldIntMap.length; r++) {
-            for(int c = 0; c < worldIntMap[r].length; c++) {
-                Vector2 tempVector = new Vector2(c, r);
-                if(tempVector.dst(mapSeed) < 10) {
-                    worldIntMap[r][c] = 17;
+        for (int n = 0; n < 5; n++) {
+            Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
+            System.out.println(mapSeed.y + " " + mapSeed.x);
+
+            worldIntMap[(int) mapSeed.y][(int) mapSeed.x] = 4;
+
+
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    Vector2 tempVector = new Vector2(c, r);
+                    if (tempVector.dst(mapSeed) < 10) {
+                        worldIntMap[r][c] = 17;
+                    }
                 }
             }
         }
@@ -85,13 +88,14 @@ public class WorldGenerator {
     }
 
     public void oceanBackground() {
+
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
                 if(Math.random() < 0.78) {
-                    worldIntMap[r][c] = 20;
+                    worldIntMap[r][c] = 22;
                 }
                 else{
-                    worldIntMap[r][c] = 19;
+                    worldIntMap[r][c] = 1;
                 }
             }
         }
