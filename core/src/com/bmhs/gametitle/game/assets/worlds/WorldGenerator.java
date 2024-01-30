@@ -16,12 +16,26 @@ public class WorldGenerator {
 
     private int[][] worldIntMap;
 
+    private int seedColor, lightGreen, green;
+
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
         this.worldMapColumns = worldMapColumns;
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
+        seedColor = 2;
+        lightGreen = 17;
+
+        //call methods to build 2D array
+
+        seedIslands(5);
+        searchAndExpand(10, seedColor, lightGreen, 0.70);
+        searchAndExpand(8, seedColor, 18, 0.6);
+        searchAndExpand(6, seedColor, 19, 0.5);
+
+
+        /**
         oceanBackground();
 
         for (int n = 0; n < 5; n++) {
@@ -40,6 +54,8 @@ public class WorldGenerator {
                 }
             }
         }
+         */
+
 // ahhhh
 
         //call methods to build 2D array
@@ -48,10 +64,84 @@ public class WorldGenerator {
         // centerLake();
         // leftCoast();
 
-        Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
-
         generateWorldTextFile();
 
+        Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
+    }
+
+    private void seedIslands(int num) {
+        for(int i = 0; i < num; i++){
+            int rSeed = MathUtils.random(worldIntMap.length-1);
+            int cSeed = MathUtils.random(worldIntMap[0].length-1);
+            worldIntMap[rSeed][cSeed] = seedColor;
+        }
+    }
+
+    //extension for searchAndExpand to get rid of seed while not overwriting other island seeds:
+    // (worldIntMap[subRow][subCol] != seedColor || worldIntMap[r][c] == seedColor)
+
+    private void firstSearchAndExpand(int radius) {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+
+                if(worldIntMap[r][c] == seedColor) {
+
+                    for(int subRow = r-radius; subRow <= r+radius; subRow++) {
+                        for(int subCol = c-radius; subCol <= c+radius; subCol++){
+
+                            if(subRow >= 0 && subCol >= 0 && subRow <= worldIntMap.length-1 && subCol <= worldIntMap[0].length-1 && worldIntMap[subRow][subCol] != seedColor) {
+                                worldIntMap[subRow][subCol] = 3;
+                            }
+
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+    }
+
+    private void searchAndExpand(int radius) {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+
+                if(worldIntMap[r][c] == seedColor) {
+
+                    for(int subRow = r-radius; subRow <= r+radius; subRow++) {
+                        for(int subCol = c-radius; subCol <= c+radius; subCol++){
+
+                            if(subRow >= 0 && subCol >= 0 && subRow <= worldIntMap.length-1 && subCol <= worldIntMap[0].length-1 && worldIntMap[subRow][subCol] != seedColor) {
+                                worldIntMap[subRow][subCol] = 3;
+                            }
+
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+    }
+
+    private void searchAndExpand(int radius, int numToFind, int numToWrite, double probability) {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                if(worldIntMap[r][c] == numToFind) {
+                    for(int subRow = r-radius; subRow <= r+radius; subRow++) {
+                        for(int subCol = c-radius; subCol <= c+radius; subCol++){
+                            if(Math.pow(Math.abs(r-subRow), 2) + Math.pow(Math.abs(c-subCol), 2) <= Math.pow(radius, 2) && subRow >= 0 && subCol >= 0 && subRow <= worldIntMap.length-1 && subCol <= worldIntMap[0].length-1 && worldIntMap[subRow][subCol] != numToFind) {
+                                if(Math.random() < probability) {
+                                    worldIntMap[subRow][subCol] = numToWrite;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public String getWorld3DArrayToString() {
