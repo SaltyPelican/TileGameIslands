@@ -37,6 +37,10 @@ public class World {
         return worldTileMap[r][c].getTexture();
     }
 
+    public WorldTile getWorldTileMap(int r, int c) {
+        return worldTileMap[r][c];
+    }
+
     public int getWorldMapRows() {
         return worldMapRows;
     }

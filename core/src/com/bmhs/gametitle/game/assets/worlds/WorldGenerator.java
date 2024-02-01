@@ -16,7 +16,7 @@ public class WorldGenerator {
 
     private int[][] worldIntMap;
 
-    private int seedColor, lightGreen, green;
+    private int seedColor, lightGreen, teal, lightBlue;
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
@@ -26,17 +26,21 @@ public class WorldGenerator {
 
         seedColor = 2;
         lightGreen = 17;
+        teal = 18;
+        lightBlue = 19;
 
         //call methods to build 2D array
 
+        oceanBackground();
+        oceanBackGroundExpansion();
+
         seedIslands(5);
-        searchAndExpand(10, seedColor, lightGreen, 0.70);
-        searchAndExpand(8, seedColor, 18, 0.6);
-        searchAndExpand(6, seedColor, 19, 0.5);
+        searchAndExpand(15, seedColor, lightGreen, 1);
+        searchAndExpand(10, seedColor, teal, 0.7);
+        searchAndExpand(6, seedColor, lightBlue, 0.5);
 
 
         /**
-        oceanBackground();
 
         for (int n = 0; n < 5; n++) {
             Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
@@ -178,14 +182,25 @@ public class WorldGenerator {
     }
 
     public void oceanBackground() {
-
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
-                if(Math.random() < 0.78) {
+                if(Math.random() < 0.1) {
                     worldIntMap[r][c] = 22;
                 }
                 else{
-                    worldIntMap[r][c] = 1;
+                    worldIntMap[r][c] = 24;
+                }
+            }
+        }
+    }
+
+    public void oceanBackGroundExpansion(){
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
+                if(worldIntMap[r][c] == 22){
+                    if(Math.random() < 0.1 && r+1 >= 0 && c+1 >= 0 && r+1 <= worldIntMap.length-1) {
+                        worldIntMap[r][c] = 10;
+                    }
                 }
             }
         }
