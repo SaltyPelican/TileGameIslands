@@ -184,7 +184,7 @@ public class WorldGenerator {
     public void oceanBackground() {
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
-                if(Math.random() < 0.1) {
+                if(Math.random() < 0.005) {
                     worldIntMap[r][c] = 22;
                 }
                 else{
@@ -195,12 +195,13 @@ public class WorldGenerator {
     }
 
     public void oceanBackGroundExpansion(){
-        for(int r = 0; r < worldIntMap.length; r++) {
-            for (int c = 0; c < worldIntMap[r].length; c++) {
-                if(worldIntMap[r][c] == 22){
-                    if(Math.random() < 0.1 && r+1 >= 0 && c+1 >= 0 && r+1 <= worldIntMap.length-1) {
-                        worldIntMap[r][c] = 10;
-                    }
+        int radius = 5;
+        double randomNum;
+        for(int i = 0; i < 1; i++) {
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    randomNum = Math.random();
+
                 }
             }
         }
