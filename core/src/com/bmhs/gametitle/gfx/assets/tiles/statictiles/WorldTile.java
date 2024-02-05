@@ -6,4 +6,5 @@ public class WorldTile extends StaticTile {
     public WorldTile(TextureRegion texture, int id, String name) {
         super(texture, id, name);
     }
+
 }

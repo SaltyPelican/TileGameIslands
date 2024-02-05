@@ -15,9 +15,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
+import com.bmhs.gametitle.game.assets.characters.PlayerCharacter;
 import com.bmhs.gametitle.game.utils.GameHandler;
 import com.bmhs.gametitle.game.assets.worlds.World;
 import com.bmhs.gametitle.gfx.assets.tiles.Tile;
+import com.bmhs.gametitle.gfx.utils.TileHandler;
 
 public class WorldGenTestScreen implements Screen {
 
@@ -31,6 +33,8 @@ public class WorldGenTestScreen implements Screen {
     private float effectiveViewportWidth, effectiveViewportHeight;
 
     private World world;
+
+    private PlayerCharacter player;
 
 
     public WorldGenTestScreen (final GameHandler game, final Screen parent) {
@@ -52,6 +56,8 @@ public class WorldGenTestScreen implements Screen {
         // at least 1:1.67 ratio for camera not to glitch out
 
         camera.update();
+
+        player = new PlayerCharacter(TileHandler.getTileHandler().getWorldTileArray().get(2), 64, 64);
     }
 
     @Override
@@ -86,6 +92,10 @@ public class WorldGenTestScreen implements Screen {
                 }
             }
 
+
+        game.batch.draw(player.getTile().getTexture(), player.getX(), player.getY());
+
+            //add two more int parameters to change size above
 
         game.batch.end();
 
@@ -138,6 +148,22 @@ public class WorldGenTestScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             camera.zoom -= 0.2;
         }
+
+        //isKeyJustPressed
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player.adjustY(64);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player.adjustY(-64);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player.adjustX(-64);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player.adjustX(64);
+        }
+
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             game.setScreen(parent);

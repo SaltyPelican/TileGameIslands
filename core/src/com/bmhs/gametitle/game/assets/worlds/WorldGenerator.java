@@ -194,7 +194,7 @@ public class WorldGenerator {
         }
     }
 
-    public void oceanBackGroundExpansion(){
+    public void oceanBackGroundExpansion() {
         int radius = 5;
         double randomNum;
         for(int i = 0; i < 1; i++) {
