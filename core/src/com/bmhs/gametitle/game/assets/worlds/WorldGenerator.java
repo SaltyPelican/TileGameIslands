@@ -185,7 +185,7 @@ public class WorldGenerator {
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
                 if(Math.random() < 0.005) {
-                    worldIntMap[r][c] = 22;
+                    worldIntMap[r][c] = 9;
                 }
                 else{
                     worldIntMap[r][c] = 24;
@@ -197,15 +197,109 @@ public class WorldGenerator {
     public void oceanBackGroundExpansion() {
         int radius = 5;
         double randomNum;
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 10; i++) {
             for (int r = 0; r < worldIntMap.length; r++) {
                 for (int c = 0; c < worldIntMap[r].length; c++) {
                     randomNum = Math.random();
-
+                    if (worldIntMap[r][c] == 9 && r - 1 >= 0 && c - 1 >= 0 && r + 1 <= worldIntMap.length - 1 && c + 1 <= worldIntMap[0].length - 1) {
+                        if (randomNum < 0.3) {
+                            worldIntMap[r - 1][c - 1] = 22;
+                        }
+                        if (randomNum > 0.0 && randomNum < 0.2) {
+                            worldIntMap[r][c - 1] = 22;
+                        }
+                        if (randomNum > 0.2 && randomNum < 0.3) {
+                            worldIntMap[r + 1][c - 1] = 22;
+                        }
+                        if (randomNum > 0.3 && randomNum < 0.4) {
+                            worldIntMap[r - 1][c + 1] = 22;
+                        }
+                        if (randomNum > 0.4 && randomNum < 0.5) {
+                            worldIntMap[r][c + 1] = 22;
+                        }
+                        if (randomNum > 0.5 && randomNum < 0.6) {
+                            worldIntMap[r + 1][c + 1] = 22;
+                        }
+                        if (randomNum > 0.6 && randomNum < 0.7) {
+                            worldIntMap[r - 1][c] = 22;
+                        }
+                        if (randomNum > 0.7 && randomNum < 0.8) {
+                            worldIntMap[r + 1][c] = 22;
+                        }
+                    }
+                }
+            }
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    if (worldIntMap[r][c] == 22) {
+                        worldIntMap[r][c] = 9;
+                    }
+                }
+            }
+        }
+        for (int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
+                if (worldIntMap[r][c] == 9) {
+                    worldIntMap[r][c] = 22;
                 }
             }
         }
     }
+
+    /**
+    Island concept code:
+    public void oceanBackGroundExpansion() {
+        int radius = 5;
+        double randomNum;
+        for(int i = 0; i < 10; i++) {
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    randomNum = Math.random();
+                    if (worldIntMap[r][c] == 9 && r - 1 >= 0 && c - 1 >= 0 && r + 1 <= worldIntMap.length - 1 && c + 1 <= worldIntMap[0].length - 1) {
+                        if (randomNum < 0.1) {
+                            worldIntMap[r - 1][c - 1] = 22;
+                        }
+                        if (randomNum > 0.1 && randomNum < 0.2) {
+                            worldIntMap[r][c - 1] = 22;
+                        }
+                        if (randomNum > 0.2 && randomNum < 0.3) {
+                            worldIntMap[r + 1][c - 1] = 22;
+                        }
+                        if (randomNum > 0.3 && randomNum < 0.4) {
+                            worldIntMap[r - 1][c + 1] = 22;
+                        }
+                        if (randomNum > 0.4 && randomNum < 0.5) {
+                            worldIntMap[r][c + 1] = 22;
+                        }
+                        if (randomNum > 0.5 && randomNum < 0.6) {
+                            worldIntMap[r + 1][c + 1] = 22;
+                        }
+                        if (randomNum > 0.6 && randomNum < 0.7) {
+                            worldIntMap[r - 1][c] = 22;
+                        }
+                        if (randomNum > 0.7 && randomNum < 0.8) {
+                            worldIntMap[r + 1][c] = 22;
+                        }
+                    }
+                }
+            }
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    if (worldIntMap[r][c] == 22) {
+                        worldIntMap[r][c] = 9;
+                    }
+                }
+            }
+        }
+        for (int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
+                if (worldIntMap[r][c] == 9) {
+                    worldIntMap[r][c] = 22;
+                }
+            }
+        }
+    }
+     */
 
     public void randomize() {
         for(int r = 0; r < worldIntMap.length; r++) {
