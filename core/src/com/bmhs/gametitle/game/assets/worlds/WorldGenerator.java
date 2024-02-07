@@ -24,7 +24,7 @@ public class WorldGenerator {
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
-        seedColor = 2;
+        seedColor = 8;
         lightGreen = 17;
         teal = 18;
         lightBlue = 19;
@@ -35,9 +35,10 @@ public class WorldGenerator {
         oceanBackGroundExpansion();
 
         seedIslands(5);
-        searchAndExpand(15, seedColor, lightGreen, 1);
+        randomLookingIslandExpansion();
+        /*searchAndExpand(15, seedColor, lightGreen, 1);
         searchAndExpand(10, seedColor, teal, 0.7);
-        searchAndExpand(6, seedColor, lightBlue, 0.5);
+        searchAndExpand(6, seedColor, lightBlue, 0.5);*/
 
 
         /**
@@ -197,7 +198,7 @@ public class WorldGenerator {
     public void oceanBackGroundExpansion() {
         int radius = 5;
         double randomNum;
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 20; i++) {
             for (int r = 0; r < worldIntMap.length; r++) {
                 for (int c = 0; c < worldIntMap[r].length; c++) {
                     randomNum = Math.random();
@@ -205,26 +206,26 @@ public class WorldGenerator {
                         if (randomNum < 0.3) {
                             worldIntMap[r - 1][c - 1] = 22;
                         }
-                        if (randomNum > 0.0 && randomNum < 0.2) {
-                            worldIntMap[r][c - 1] = 22;
+                        if (randomNum > 0.3 && randomNum < 0.32) {
+                            worldIntMap[r][c - 1] = 22; // here
                         }
-                        if (randomNum > 0.2 && randomNum < 0.3) {
+                        if (randomNum > .81 && randomNum < 0.82) {
                             worldIntMap[r + 1][c - 1] = 22;
                         }
-                        if (randomNum > 0.3 && randomNum < 0.4) {
+                        if (randomNum > 0.8 && randomNum < 0.81) {
                             worldIntMap[r - 1][c + 1] = 22;
                         }
-                        if (randomNum > 0.4 && randomNum < 0.5) {
-                            worldIntMap[r][c + 1] = 22;
+                        if (randomNum > 0.75 && randomNum < 0.77) {
+                            worldIntMap[r][c + 1] = 22; // here
                         }
-                        if (randomNum > 0.5 && randomNum < 0.6) {
+                        if (randomNum > 0.4 && randomNum < 0.7) {
                             worldIntMap[r + 1][c + 1] = 22;
                         }
-                        if (randomNum > 0.6 && randomNum < 0.7) {
-                            worldIntMap[r - 1][c] = 22;
+                        if (randomNum > 0.35 && randomNum < 0.37) {
+                            worldIntMap[r - 1][c] = 22; // here
                         }
-                        if (randomNum > 0.7 && randomNum < 0.8) {
-                            worldIntMap[r + 1][c] = 22;
+                        if (randomNum > 0.7 && randomNum < 0.72) {
+                            worldIntMap[r + 1][c] = 22; // here
                         }
                     }
                 }
@@ -241,6 +242,59 @@ public class WorldGenerator {
             for (int c = 0; c < worldIntMap[r].length; c++) {
                 if (worldIntMap[r][c] == 9) {
                     worldIntMap[r][c] = 22;
+                }
+            }
+        }
+    }
+
+    public void randomLookingIslandExpansion() {
+        double randomNum;
+        int colorToBecome = 15;
+        int islandSeedColor = 8;
+        for(int i = 0; i < 30; i++) {
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    randomNum = Math.random();
+                    if (worldIntMap[r][c] == islandSeedColor && r - 1 >= 0 && c - 1 >= 0 && r + 1 <= worldIntMap.length - 1 && c + 1 <= worldIntMap[0].length - 1) {
+                        if (randomNum < 0.1) {
+                            worldIntMap[r - 1][c - 1] = colorToBecome;
+                        }
+                        if (randomNum > 0.1 && randomNum < 0.2) {
+                            worldIntMap[r][c - 1] = colorToBecome;
+                        }
+                        if (randomNum > 0.2 && randomNum < 0.3) {
+                            worldIntMap[r + 1][c - 1] = colorToBecome;
+                        }
+                        if (randomNum > 0.3 && randomNum < 0.4) {
+                            worldIntMap[r - 1][c + 1] = colorToBecome;
+                        }
+                        if (randomNum > 0.4 && randomNum < 0.5) {
+                            worldIntMap[r][c + 1] = colorToBecome;
+                        }
+                        if (randomNum > 0.5 && randomNum < 0.6) {
+                            worldIntMap[r + 1][c + 1] = colorToBecome;
+                        }
+                        if (randomNum > 0.6 && randomNum < 0.7) {
+                            worldIntMap[r - 1][c] = colorToBecome;
+                        }
+                        if (randomNum > 0.7 && randomNum < 0.8) {
+                            worldIntMap[r + 1][c] = colorToBecome;
+                        }
+                    }
+                }
+            }
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    if (worldIntMap[r][c] == colorToBecome) {
+                        worldIntMap[r][c] = islandSeedColor;
+                    }
+                }
+            }
+        }
+        for (int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
+                if (worldIntMap[r][c] == islandSeedColor) {
+                    worldIntMap[r][c] = colorToBecome;
                 }
             }
         }
