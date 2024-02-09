@@ -35,15 +35,15 @@ public class WorldGenerator {
         oceanBackGroundExpansion();
 
         seedIslands(5);
-        randomLookingIslandExpansion2(50, 18, 8);
-        elevationSeedAdder(18, 8, 0.01);
-        randomLookingIslandExpansion2(25, 17, 8);
-        elevationSeedAdder(17, 8, 0.01);
-        randomLookingIslandExpansion2(16, 16, 8);
-        elevationSeedAdder(16, 8, 0.01);
-        randomLookingIslandExpansion2(8, 15, 8);
-        elevationSeedAdder(15, 8, 0.01);
-        randomLookingIslandExpansion2(4, 14, 8);
+        randomLookingIslandExpansion2(50, 32, 8);
+        elevationSeedAdder(32, 8, 0.01);
+        randomLookingIslandExpansion2(25, 33, 8);
+        elevationSeedAdder(33, 8, 0.01);
+        randomLookingIslandExpansion2(16, 34, 8);
+        elevationSeedAdder(34, 8, 0.01);
+        randomLookingIslandExpansion2(8, 35, 8);
+        elevationSeedAdder(35, 8, 0.01);
+        randomLookingIslandExpansion2(4, 36, 8);
 
         // randomLookingIslandExpansion2(40, 18, 8);
         /*searchAndExpand(15, seedColor, lightGreen, 1);
