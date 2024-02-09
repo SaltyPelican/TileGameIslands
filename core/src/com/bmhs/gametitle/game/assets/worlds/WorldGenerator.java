@@ -35,7 +35,17 @@ public class WorldGenerator {
         oceanBackGroundExpansion();
 
         seedIslands(5);
-        randomLookingIslandExpansion();
+        randomLookingIslandExpansion2(50, 18, 8);
+        elevationSeedAdder(18, 8, 0.01);
+        randomLookingIslandExpansion2(25, 17, 8);
+        elevationSeedAdder(17, 8, 0.01);
+        randomLookingIslandExpansion2(16, 16, 8);
+        elevationSeedAdder(16, 8, 0.01);
+        randomLookingIslandExpansion2(8, 15, 8);
+        elevationSeedAdder(15, 8, 0.01);
+        randomLookingIslandExpansion2(4, 14, 8);
+
+        // randomLookingIslandExpansion2(40, 18, 8);
         /*searchAndExpand(15, seedColor, lightGreen, 1);
         searchAndExpand(10, seedColor, teal, 0.7);
         searchAndExpand(6, seedColor, lightBlue, 0.5);*/
@@ -299,6 +309,77 @@ public class WorldGenerator {
             }
         }
     }
+
+    public void randomLookingIslandExpansion2(int numOfRepeats, int colorToBecome, int islandSeedColor) {
+        double randomNum;
+//        int colorToBecome = 18;
+//        int islandSeedColor = 8;
+        for(int i = 0; i < numOfRepeats; i++) {
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    if (worldIntMap[r][c] == islandSeedColor && r - 1 >= 0 && c - 1 >= 0 && r + 1 <= worldIntMap.length - 1 && c + 1 <= worldIntMap[0].length - 1) {
+                        randomNum = Math.random();
+                        if (randomNum < 0.1) {
+                            worldIntMap[r - 1][c - 1] = colorToBecome;
+                        }
+                        randomNum = Math.random();
+                        if (randomNum > 0.1 && randomNum < 0.2) {
+                            worldIntMap[r][c - 1] = colorToBecome;
+                        }
+                        randomNum = Math.random();
+                        if (randomNum > 0.2 && randomNum < 0.3) {
+                            worldIntMap[r + 1][c - 1] = colorToBecome;
+                        }
+                        randomNum = Math.random();
+                        if (randomNum > 0.3 && randomNum < 0.4) {
+                            worldIntMap[r - 1][c + 1] = colorToBecome;
+                        }
+                        randomNum = Math.random();
+                        if (randomNum > 0.4 && randomNum < 0.5) {
+                            worldIntMap[r][c + 1] = colorToBecome;
+                        }
+                        randomNum = Math.random();
+                        if (randomNum > 0.5 && randomNum < 0.6) {
+                            worldIntMap[r + 1][c + 1] = colorToBecome;
+                        }
+                        randomNum = Math.random();
+                        if (randomNum > 0.6 && randomNum < 0.7) {
+                            worldIntMap[r - 1][c] = colorToBecome;
+                        }
+                        randomNum = Math.random();
+                        if (randomNum > 0.7 && randomNum < 0.8) {
+                            worldIntMap[r + 1][c] = colorToBecome;
+                        }
+                    }
+                }
+            }
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    if (worldIntMap[r][c] == colorToBecome) {
+                        worldIntMap[r][c] = islandSeedColor;
+                    }
+                }
+            }
+        }
+        for (int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
+                if (worldIntMap[r][c] == islandSeedColor) {
+                    worldIntMap[r][c] = colorToBecome;
+                }
+            }
+        }
+    }
+
+    public void elevationSeedAdder(int colorToChange, int colorToBecome, double probability) {
+        for (int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
+                if (worldIntMap[r][c] == colorToChange && Math.random() < probability) {
+                    worldIntMap[r][c] = colorToBecome;
+                }
+            }
+        }
+    }
+
 
     /**
     Island concept code:
